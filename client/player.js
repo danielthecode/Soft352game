@@ -23,7 +23,7 @@ function movetoPointer (displayObject, speed, pointer, maxTime) {
             //  We know how many pixels we need to move, but how fast?
             speed = distanceToPointer(displayObject, pointer) / (maxTime / 1000);
         }
-		
+
 		/*
 		if (displayObject.body.y < upper_bound || displayObject.body.y > bottom_bound) {
 			if (!(game.input.worldY > upper_bound && game.input.worldY < bottom_bound)) {
