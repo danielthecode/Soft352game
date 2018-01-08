@@ -6,13 +6,20 @@
 	</head>
 	<body>
 
-		<div id="gameDiv">
+		<div id="signDiv">
+    Username: <input id="signDiv-username" type="text"></input><br>
+    Password: <input id="signDiv-password" type="password"></input>
+    <button id="signDiv-signIn">Sign In</button>
+    <button id="signDiv-signUp">Sign Up</button>
+</div>
+
+		<div id="gameDiv" style="display:none;">
 		</div>
 
 	</body>
 
 	<script src="client/lib/phaser.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 	<script src="client/player.js"></script>
 	<script src="client/item.js"></script>
 	<script src="client/collide.js"></script>

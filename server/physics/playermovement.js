@@ -11,7 +11,7 @@ function movetoPointer (displayObject, speed, pointer, maxTime) {
 		//  We know how many pixels we need to move, but how fast?
 		speed = distanceToPointer(displayObject, pointer) / (maxTime / 1000);
 	}
-	
+
 
 
 	displayObject.playerBody.velocity[0] = Math.cos(angle) * speed;
@@ -36,7 +36,7 @@ function distanceToPointer (displayObject, pointer, world) {
 
 function angleToPointer (displayObject, pointer, world) {
 
-        
+
         if (world === undefined) { world = false; }
 
         if (world)
@@ -45,15 +45,15 @@ function angleToPointer (displayObject, pointer, world) {
         }
         else
         {
-            return Math.atan2(pointer.worldY - displayObject.playerBody.position[1], 
+            return Math.atan2(pointer.worldY - displayObject.playerBody.position[1],
 			pointer.worldX - displayObject.playerBody.position[0]);
         }
 
 }
 
-//we export these three functions 
+//we export these three functions
 module.exports = {
 	movetoPointer: movetoPointer,
 	distanceToPointer: distanceToPointer,
 	angleToPointer: angleToPointer
-}
+};

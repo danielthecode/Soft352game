@@ -5,10 +5,38 @@ socket = io.connect();
 canvas_width = window.innerWidth * window.devicePixelRatio;
 canvas_height = window.innerHeight * window.devicePixelRatio;
 
+
+var signDiv = document.getElementById('signDiv');
+	var signDivUsername = document.getElementById('signDiv-username');
+	var signDivSignIn = document.getElementById('signDiv-signIn');
+	var signDivSignUp = document.getElementById('signDiv-signUp');
+	var signDivPassword = document.getElementById('signDiv-password')
+
+	signDivSignIn.onclick = function(){
+		socket.emit('signIn',{username:signDivUsername.value,password:signDivPassword.value});
+	};
+	signDivSignUp.onclick = function(){
+		socket.emit('signUp',{username:signDivUsername.value,password:signDivPassword.value});
+	};
+	socket.on('signInResponse',function(data){
+		if(data.success){
+			signDiv.style.display = 'none';
+			gameDiv.style.display = 'inline-block';
+		} else
+			alert("Sign in unsuccessul.");
+	});
+	socket.on('signUpResponse',function(data){
+		if(data.success){
+			alert("Sign up successul.");
+		} else
+			alert("Sign up unsuccessul.");
+	});
+
 game = new Phaser.Game(canvas_width,canvas_height, Phaser.CANVAS, 'gameDiv');
 
 //the enemy player list
 var enemies = [];
+var serv = this;
 
 var gameProperties = {
 	gameWidth: 4000,
@@ -24,7 +52,7 @@ function onsocketConnected () {
 	console.log("connected to server");
 	gameProperties.in_game = true;
 	// send the server our initial position and tell it we are connected
-	socket.emit('new_player', {x: 0, y: 0, angle: 0});
+	socket.emit('signIn', {x: 0, y: 0, angle: 0});
 }
 
 // When the server notifies us of client disconnection, we find the disconnected
@@ -220,6 +248,7 @@ main.prototype = {
 		console.log("client started");
 		socket.on("connect", onsocketConnected);
 
+
 		//listen for main player creation
 		socket.on("create_player", createPlayer);
 		//listen to new enemy connections
@@ -270,3 +299,6 @@ var gameBootstrapper = {
 };
 
 gameBootstrapper.init("gameDiv");
+
+
+module.exports.main.prototype = main.prototype;

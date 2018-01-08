@@ -17,6 +17,9 @@ serv.listen(app.get('port'),function(){
 	console.log('listening on port',app.get('port'));
 });
 
+var xp = 0;
+var yp =0;
+var ap =0;
 var player_lst = [];
 
 //needed for physics update
@@ -40,7 +43,7 @@ var game_setup = function() {
 	this.canvas_height = 4000;
 	//game size width
 	this.canvas_width = 4000;
-}
+};
 
 // createa a new game instance
 var game_instance = new game_setup();
@@ -48,15 +51,15 @@ var game_instance = new game_setup();
 
 //a player class in the server
 var Player = function (startX, startY, startAngle) {
-  this.x = startX
-  this.y = startY
-  this.angle = startAngle
+  this.xp = startX;
+  this.yp = startY;
+  this.ap = startAngle;
   this.speed = 500;
   //We need to intilaize with true.
   this.sendData = true;
   this.size = getRndInteger(40, 100);
   this.dead = false;
-}
+};
 
 var foodpickup = function (max_x, max_y, type, id) {
 	this.x = getRndInteger(10, max_x - 10) ;
@@ -64,7 +67,7 @@ var foodpickup = function (max_x, max_y, type, id) {
 	this.type = type;
 	this.id = id;
 	this.powerup;
-}
+};
 
 //We call physics handler 60fps. The physics is calculated here.
 setInterval(heartbeat, 1000/60);
@@ -113,11 +116,11 @@ function addfood(n) {
 
 // when a new player connects, we make a new instance of the player object,
 // and send a new player message to the client.
-function onNewplayer (data) {
+function onNewplayer(data){
+	if(isValidPassword(data) ){
 	console.log(data);
 	//new player instance
-	var newPlayer = new Player(data.x, data.y, data.angle);
-
+	var newPlayer = new Player(xp,yp,ap);
 	//create an instance of player body
 	playerBody = new p2.Body ({
 		mass: 0,
@@ -133,6 +136,8 @@ function onNewplayer (data) {
 	newPlayer.id = this.id;
 
 	this.emit('create_player', {size: newPlayer.size});
+
+
 
 	//information to be sent to all clients except sender
 	var current_info = {
@@ -169,6 +174,10 @@ function onNewplayer (data) {
 
 
 	player_lst.push(newPlayer);
+	this.emit('signInResponse', {success:true});
+}else{
+		this.emit('signInResponse', {success:false})
+}
 }
 
 //instead of listening to player positions, we listen to user inputs
@@ -340,6 +349,24 @@ function find_playerid(id) {
 	return false;
 }
 
+var USERS = {
+	"bob":"asd",
+	"sam":"simple",
+	"ted":"mosby"
+};
+
+var isValidPassword = function(data){
+	return USERS[data.username] === data.password;
+};
+
+var isUsernameTaken = function(data){
+	return USERS[data.username];
+};
+
+var addUser = function(data){
+	 USERS[data.username] = data.password;
+};
+
  // io connection
 var io = require('socket.io')(serv,{});
 
@@ -350,7 +377,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('disconnect', onClientdisconnect);
 
 	// listen for new player
-	socket.on("new_player", onNewplayer);
+	socket.on("signIn", onNewplayer);
 	/*
 	//we dont need this anymore
 	socket.on("move_player", onMovePlayer);
