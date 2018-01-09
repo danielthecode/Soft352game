@@ -17,9 +17,6 @@ serv.listen(app.get('port'),function(){
 	console.log('listening on port',app.get('port'));
 });
 
-var xp = 0;
-var yp =0;
-var ap =0;
 var player_lst = [];
 
 //needed for physics update
@@ -120,7 +117,7 @@ function onNewplayer(data){
 	if(isValidPassword(data) ){
 	console.log(data);
 	//new player instance
-	var newPlayer = new Player(xp,yp,ap);
+	var newPlayer = new Player(data.x,data.y,data.angle);
 	//create an instance of player body
 	playerBody = new p2.Body ({
 		mass: 0,
