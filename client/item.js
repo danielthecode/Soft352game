@@ -58,4 +58,4 @@ var food_object = function (id, type, startx, starty, value) {
 	this.item.body.data.gravityScale = 0;
 	this.item.body.data.shapes[0].sensor = true;
 
-}
+};

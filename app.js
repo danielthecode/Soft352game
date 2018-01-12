@@ -4,6 +4,7 @@ var p2 = require('p2');
 var unique = require('node-uuid');
 var app = express();
 var serv = require('http').Server(app);
+
 //get the functions required to move players in the server.
 var physicsPlayer = require('./server/physics/playermovement.js');
 
@@ -54,7 +55,7 @@ var Player = function (startX, startY, startAngle) {
   this.speed = 500;
   //We need to intilaize with true.
   this.sendData = true;
-  this.size = getRndInteger(40, 100);
+  this.size = 30;
   this.dead = false;
 };
 
@@ -83,7 +84,6 @@ function physics_hanlder() {
 function heartbeat () {
 
 	//the number of food that needs to be generated
-	//in this demo, we keep the food always at 100
 	var food_generatenum = game_instance.food_num - game_instance.food_pickup.length;
 
 	//add the food

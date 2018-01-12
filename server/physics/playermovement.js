@@ -8,7 +8,6 @@ function movetoPointer (displayObject, speed, pointer, maxTime) {
 
 	if (maxTime > 0)
 	{
-		//  We know how many pixels we need to move, but how fast?
 		speed = distanceToPointer(displayObject, pointer) / (maxTime / 1000);
 	}
 
@@ -51,7 +50,7 @@ function angleToPointer (displayObject, pointer, world) {
 
 }
 
-//we export these three functions
+//export these three functions
 module.exports = {
 	movetoPointer: movetoPointer,
 	distanceToPointer: distanceToPointer,

@@ -1,0 +1,54 @@
+body{
+  margin:0;
+  padding: 0;
+  font: 'Arial';
+  background-color: #fff;
+}
+
+#signDiv{
+  width: 410px;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 180px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+#signDiv h2{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#signDiv input{
+  width: 400px;
+  height: 35px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  border: 1px solid silver;
+  padding: 5px;
+}
+
+#signDiv #signDiv-signUp {
+  padding: 5px;
+  width: 203px;
+  height: 40px;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 3px;
+  border: 0;
+  font-size: 18px;
+
+}
+
+#signDiv #signDiv-signIn {
+  padding: 5px;
+  width: 203px;
+  height: 40px;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 3px;
+  border: 0;
+  font-size: 18px;
+
+}
